@@ -13,7 +13,7 @@ Painel analítico da operação de um marketplace de delivery (comida e varejo),
 
 ## 1. Modelo de dados
 
-8 tabelas em esquema estrela, com 7 relacionamentos 1:N:
+8 tabelas em esquema estrela, com 7 relacionamentos 1:N:.
 
 - **Fatos:** `orders` (pedidos), `deliveries` (entregas), `payments` (pagamentos)
 - **Dimensões:** `stores` (lojas), `hubs` (centros de distribuição), `drivers` (entregadores), `channels` (canais de venda), `dCalendario` (dimensão de calendário própria — Ano, Trimestre, Mês, Dia da semana)
