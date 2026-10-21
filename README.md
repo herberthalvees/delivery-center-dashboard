@@ -13,18 +13,21 @@ Painel analítico da operação de um marketplace de delivery (comida e varejo),
 
 ## 1. Modelo de dados
 
-8 tabelas em esquema estrela:
+8 tabelas em esquema estrela, com 7 relacionamentos 1:N:
 
 - **Fatos:** `orders` (pedidos), `deliveries` (entregas), `payments` (pagamentos)
 - **Dimensões:** `stores` (lojas), `hubs` (centros de distribuição), `drivers` (entregadores), `channels` (canais de venda), `dCalendario` (dimensão de calendário própria — Ano, Trimestre, Mês, Dia da semana)
 
+![Modelo de dados](screenshots/00-modelo-dados.png)
+
 ```
-stores     → hubs          (M:1, por hub_id)
-orders     → stores         (M:1, por store_id)
-orders     → channels       (M:1, por channel_id)
-payments   → orders         (M:1, por payment_order_id)
-deliveries → orders         (M:1, por delivery_order_id)
-deliveries → drivers        (M:1, por driver_id)
+hubs       → stores        (1:N, por hub_id)
+stores     → orders        (1:N, por store_id)
+channels   → orders        (1:N, por channel_id)
+dCalendario → orders       (1:N, por Date/DataPedido)
+orders     → deliveries    (1:N, por delivery_order_id)
+orders     → payments      (1:N, por payment_order_id)
+drivers    → deliveries    (1:N, por driver_id)
 ```
 
 A dimensão de calendário é construída à parte (não deriva da tabela de pedidos), o que permite granularidade de dia da semana/trimestre sem recalcular em DAX.
